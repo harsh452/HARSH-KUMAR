@@ -33,3 +33,5 @@ app.get("/",(req,res)=>{
 app.listen(port,() =>{
     console.log("listening on 5000");
 })
+// Not able to display the json data at the moment but the program is able to fetch the data and sort it;
+
