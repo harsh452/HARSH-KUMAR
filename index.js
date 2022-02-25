@@ -11,12 +11,13 @@ var letters = new Set();
 
 app.get("/:servername/:dataType", (req, res,next) => {
 let servername = req.params.servername;
-console.log(servername);
 let dataType = req.params.dataType
 axios.get(` http://localhost:${servername}/${dataType}`).then((response)=>{
-  letters.add(response.data.numbers)
-  console.log(letters);
+ 
+  for(var i in response.data.numbers)
+  letters.add( response.data.numbers[i]);
 
+ console.log(letters);
 }).catch((err)=>{
   
 })
