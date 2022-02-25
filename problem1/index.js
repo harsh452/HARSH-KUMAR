@@ -13,7 +13,7 @@ app.get("/:servername/:dataType", (req, res) => {
 let servername = req.params.servername;
 let dataType = req.params.dataType
 var temp = [];
-axios.get(` http://localhost:${servername}/${dataType}`).then((response)=>{
+axios.get(` http://localhost:${servername}/${dataType}`,{timeout:495}).then((response)=>{
  
 
   for(var i in response.data.numbers)
@@ -22,6 +22,7 @@ axios.get(` http://localhost:${servername}/${dataType}`).then((response)=>{
    temp = [...new Set(letters)];
    temp.sort(function(a, b){return a - b});
    res.send(temp);
+  
 
 }).catch((err)=>{
   console.log(err);
