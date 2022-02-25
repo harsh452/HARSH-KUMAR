@@ -5,33 +5,34 @@ var request = require('request');
 app.use(express.json());
 var port = process.env.PORT || 5000;
 
-var letters = new Set();
+var letters = [];
+app.use(express.json());
+
 
 app.get("/:servername/:dataType", (req, res) => {
 let servername = req.params.servername;
 let dataType = req.params.dataType
+var temp = [];
 axios.get(` http://localhost:${servername}/${dataType}`).then((response)=>{
  
+
   for(var i in response.data.numbers)
-  letters.add( response.data.numbers[i]);
-
-
+  letters.push( response.data.numbers[i]);
+  
+   temp = [...new Set(letters)];
+   temp.sort(function(a, b){return a - b});
+   res.send(temp);
 
 }).catch((err)=>{
-  
+  console.log(err);
 })
-var sortedNumbers = Array.from(letters).sort((a, b) => a - b);
-var sortedLetters = new Set(sortedNumbers);
-res.send({
-    sortedLetters
-})
-console.log(sortedLetters);
+
 
 
 });
 
 app.get("/",(req,res)=>{
-    res.send('heloo')
+    res.send('hello')
 })
 
 
@@ -40,6 +41,3 @@ app.get("/",(req,res)=>{
 app.listen(port,() =>{
     console.log("listening on 5000");
 })
-
-// Not able to display the json data at the moment but the program is able to fetch the data and sort it;
-
